@@ -86,14 +86,15 @@ chart = plot(data) # data already contains the data to be plotted.  Always inclu
         elif library == "plotly":
             instructions = {
                 "role": "system",
-                "content": f"If using a field where semantic_type=date, do the following i) convert date fields to date types using data[''] = pd.to_datetime(data[''], errors='coerce'), ALWAYS use  errors='coerce' ii) drop the rows with NaT values data = data[pd.notna(data[''])] iii) convert field to right time format for plotting.  ALWAYS make sure the x-axis labels are legible.  Solve the task  carefully by completing ONLY the <imports> AND <stub> section. Given the dataset summary, the plot(data) method should generate a {library} chart ({goal.visualization}) that addresses this goal: {goal.question}. Always add a type that is BASED on semantic_type to each field such as :Q, :O, :N, :T, :G. Use :T if semantic_type is year or date. The plot method must return an altair object (chart)`. Think step by step. \n",
+                "content": f"If calculating metrics such as mean, median, mode, etc. ALWAYS use the option 'numeric_only=True' when applicable and available, {mpl_pre}",
             }
             template = \
                 """
-import plotly
+import plotly.express as px
 <imports>
 def plot(data: pd.DataFrame):
     <stub> # only modify this section
+    fig.show()
     return chart
 chart = plot(data) # data already contains the data to be plotted.  Always include this line. No additional code beyond this line..
 """
